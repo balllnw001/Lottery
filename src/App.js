@@ -130,7 +130,7 @@ const LotteryNumbers = () => {
           <div className="content-con">
             <div className="content-item">
               <div className="content-title">
-                <h1>ผลการออกรางวัลล็อตเตอรี่</h1>
+                <h1>รางวัลล็อตเตอรี่</h1>
               </div>
               <div className="random-lottery">
                 <h2>ผลการออกรางวัลล็อตเตอรี่</h2>
