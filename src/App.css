@@ -1,38 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai&family=Righteous&family=Roboto&display=swap');
+
+*{  
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+}
+
 .App {
+  height: 100%;
+  /* height: 52.44vw; */
+  background-color: #FF8800;
+}
+
+.lottery-main{
+  padding: 154px 0px;
+  justify-content: center;
+  align-items: center;
+}
+
+/*.title h1{
+   color: #fff; 
+}*/
+
+.content{
+  max-width: 960px;
+  background-color: #fff;
+}
+
+.content-con{
+  padding: 20px ;
+}
+
+.content-title h1{
+  margin: 0;
+  font-weight: bold;
+  font-size: 22px;
+  background-color: #221E1B;
+  color: #fff;
+  padding: 20px;
+}
+
+/* .content-item{
+  margin-top: 10px;
+} */
+
+.random-lottery h2{
+  padding: 15px 0px;
+  margin: 0;
   text-align: center;
+  background-color: #FDFAE3;
+  color: #D12530;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.check-lottery{
+  padding: 10px 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.check-lottery h1{
+  background-color: #fff;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.random-btn{
+  transition: 0.3s;
+  border-radius: 15px;
+  width: 200px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.check-lottery-btn{
+  width: 100%;
+  transition: 0.3s;
+  padding: 15px 0px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.lottery-number-list{
+  display: grid;
+  grid-auto-rows: minmax(80px);
+  border-bottom: 1px solid #000;
+}
+
+.award-name{
+  width: 100%;
+  height: 100%;
+  border-right: 5px solid #000;
+  text-align: center;
+  background-color: #221E1B;
+  color: #fff;
+}
+
+.award-name p{
+  padding: 15px;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  display: flex;
+  border-top: 1px solid #000;
+  border-left: 1px solid #000;
 }
 
-.App-link {
-  color: #61dafb;
+.lottery-number-item{
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.lottery-number{
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.lottery-number p{
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border-top: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+.check-lottery label{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  align-items: center;
+  margin-bottom: 0rem;
+}
+
+.check-lottery label .input-number-lottery{
+  width: 100%;
+  text-align: right;
+  padding-right: 5px;
+}
+
+.alert-award{
+  width: 100%;
+  display: flex;
+  background-color: #90a9d7;
+  font-weight: bold;
+  font-size: 20px;
+  color: #fff;
+  padding: 20px 0;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width:480px){
+  .lottery-number-item{
+    grid-template-columns: repeat(1,1fr);
   }
-  to {
-    transform: rotate(360deg);
+  .award-name{
+    border: none;
+  }
+  .lottery-number-list{
+    border-left: 1px solid #000;
+  }
+  .lottery-number{
+    height: 15vw;
+  }
+  .random-btn{
+    width: 100%;
+    margin: 5px 0;
+    border-radius: 0;
+  }
+  .check-lottery label{
+    grid-template-columns: repeat(1,1fr);
+  }
+  .check-lottery label .input-number-lottery{
+    width: 100%;
+    text-align: center;
+    font-size: 4vw;
+  }
+  .alert-award{
+    margin-top: 10px;
+    font-size: 4vw;
+  }
+  .check-lottery{
+    padding: 10px 10px;
+  }
+  .check-lottery{
+    border: 1px solid #000;
+  }
+  .lottery-main{
+    padding: 20px 10px;
   }
 }
