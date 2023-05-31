@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css'
 
 const LotteryNumbers = () => {
@@ -17,7 +17,11 @@ const LotteryNumbers = () => {
 
   const [alert, setALERT] = useState([]);
 
-  const generateNumbers = () => {
+  const [value, setValue] = useState([]);
+
+  console.log('valuelocalStorage :', value);
+
+  const generateNumbers = (e) => {
     const min = 1;
     const max = 999;
 
@@ -56,11 +60,20 @@ const LotteryNumbers = () => {
     setRandomNumbers4(generatedNumbers4);
     combinedNumbers3Digits(combinedNumbers3DigitsAll);
 
+    setValue(e.target.value);
+    localStorage.setItem('inputValue', JSON.stringify(combinedNumbers3DigitsAll));
+
     setMatchedNumbers([]);
 
     console.log(matchedNumbers)
     console.log(combinedNumbers3DigitsAll);
   };
+
+  useEffect(() => {
+    const storagenumber = localStorage.getItem('inputValue');
+    const storagenumberjs = JSON.parse(storagenumber)
+    setValue(storagenumberjs);
+  }, []);
 
   const handleUserNumbersChange = (event, index) => {
     const updatedUserNumbers = [...userNumbers];
@@ -141,7 +154,11 @@ const LotteryNumbers = () => {
                         รางวัลละ 6,000,000 บาท</p>
                     </div>
                     <div className="lottery-number">
-                      <p>{randomNumbers}</p>
+                      {randomNumbers > 0 ? (
+                        <p>{randomNumbers}</p>
+                      ) : (
+                        <p>{value[0]}</p>
+                      )}
                     </div>
                   </div>
                   <div className="lottery-number-item">
@@ -150,8 +167,17 @@ const LotteryNumbers = () => {
                         รางวัลๆละ 100,000 บาท</p>
                     </div>
                     <div className="lottery-number">
-                      <p>{randomNumbers1}</p>
-                      <p>{randomNumbers2}</p>
+                      {randomNumbers > 0 ? (
+                        <>
+                          <p>{randomNumbers1}</p>
+                          <p>{randomNumbers2}</p>
+                        </>
+                      ) : (
+                        <>
+                          <p>{value[1]}</p>
+                          <p>{value[2]}</p>
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className="lottery-number-item">
@@ -160,9 +186,19 @@ const LotteryNumbers = () => {
                         รางวัลๆละ 4,000 บาท</p>
                     </div>
                     <div className="lottery-number">
-                      <p>{randomNumbers3[0]}</p>
-                      <p>{randomNumbers3[1]}</p>
-                      <p>{randomNumbers3[2]}</p>
+                      {randomNumbers > 0 ? (
+                        <>
+                          <p>{randomNumbers3[0]}</p>
+                          <p>{randomNumbers3[1]}</p>
+                          <p>{randomNumbers3[2]}</p>
+                        </>
+                      ) : (
+                        <>
+                          <p>{value[3]}</p>
+                          <p>{value[4]}</p>
+                          <p>{value[5]}</p>
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className="lottery-number-item">
@@ -171,7 +207,15 @@ const LotteryNumbers = () => {
                         รางวัลๆละ 2,000 บาท</p>
                     </div>
                     <div className="lottery-number">
-                      <p>{randomNumbers4}</p>
+                      {randomNumbers > 0 ? (
+                        <>
+                          <p>{randomNumbers4[0]}</p>
+                        </>
+                      ) : (
+                        <>
+                          <p>{value[6]}</p>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
