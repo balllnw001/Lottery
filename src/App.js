@@ -2,78 +2,91 @@ import React, { useState, useEffect } from 'react';
 import './App.css'
 
 const LotteryNumbers = () => {
+
   const [randomNumbers, setRandomNumbers] = useState([]);
   const [randomNumbers1, setRandomNumbers1] = useState([]);
   const [randomNumbers2, setRandomNumbers2] = useState([]);
   const [randomNumbers3, setRandomNumbers3] = useState([]);
   const [randomNumbers4, setRandomNumbers4] = useState([]);
+  const [checkNumbers3Digits, setCheckNumbers3Digits] = useState([]);
 
-  const [checkNumbers3Digits, combinedNumbers3Digits] = useState([]);
+  useEffect(() => {
+    retrieveRandomNumbers();
+  }, []);
 
-  const [userNumbers, setUserNumbers] = useState([]);
-  console.log(userNumbers);
-  const [matchedNumbers, setMatchedNumbers] = useState([]);
-  console.log('ALERT', matchedNumbers);
+  const retrieveRandomNumbers = () => {
+    const storedRandomNumbers = localStorage.getItem('randomNumbers');
+    if (storedRandomNumbers) {
+      const parsedNumbers = JSON.parse(storedRandomNumbers);
+      setRandomNumbers(parsedNumbers[0]);
+      setRandomNumbers1(parsedNumbers[1]);
+      setRandomNumbers2(parsedNumbers[2]);
+      setRandomNumbers3(parsedNumbers[3]);
+      setRandomNumbers4(parsedNumbers[4]);
+      setCheckNumbers3Digits(parsedNumbers);
+    }
+  };
 
-  const [alert, setALERT] = useState([]);
-
-  const [value, setValue] = useState([]);
-
-  console.log('valuelocalStorage :', value);
-
-  const generateNumbers = (e) => {
+  const generateRandomNumbers = () => {
     const min = 1;
     const max = 999;
+    // const generatedNumbers = [];
+    const generatedNumbers = ['022', '019', '021', '432', '485', '022', '022']
 
-    const generatedNumbers = Array.from({ length: 1 }, () =>
-      Math.floor(Math.random() * (max - min + 1)) + min
-    );
-    const generatedNumbers1 = Array.from({ length: 1 }, () =>
-      Math.floor(generatedNumbers) - 1
-    );
-    const generatedNumbers2 = Array.from({ length: 1 }, () =>
-      Math.floor(generatedNumbers) + 1
-    );
-    const generatedNumbers3 = [];
+    const newNumbers0 = Math.floor(
+      Math.random() * (max - min + 1)) + min;
+    generatedNumbers.push(newNumbers0.toString().padStart(3, '0'));
+
+    const newNumbers1 = Math.floor(
+      (newNumbers0) - 1);
+    generatedNumbers.push(newNumbers1.toString().padStart(3, '0'));
+
+    const newNumbers2 = Math.floor(
+      (newNumbers0) + 1);
+    generatedNumbers.push(newNumbers2.toString().padStart(3, '0'));
+
     for (let i = 0; i < 3; i++) {
       const newNumbers3 = Math.floor(
         Math.random() * (max - min + 1)) + min;
-      generatedNumbers3.push(newNumbers3.toString().padStart(3, '0'));
+      generatedNumbers.push(newNumbers3.toString().padStart(3, '0'));
     };
+    const newNumbers4 = Math.floor(
+      Math.random() * 999 + 1).toString().slice(-2);
+    generatedNumbers.push(newNumbers4.toString().padStart(3, '0'));
 
-    const generatedNumbers4 = Array.from({ length: 1 }, () =>
-      Math.floor(Math.random() * 999 + 1).toString().slice(-2)
-    );
-
-    // const generatedNumbers = [230];
-    // const generatedNumbers1 = [229];
-    // const generatedNumbers2 = [231];
-    // const generatedNumbers3 = [7, 333, 253];
-    // const generatedNumbers4 = [30];
-
-    const combinedNumbers3DigitsAll = [...generatedNumbers, ...generatedNumbers1, ...generatedNumbers2, ...generatedNumbers3, ...generatedNumbers4].map(Number);
-
-    setRandomNumbers(generatedNumbers.toString().padStart(3, '0'));
-    setRandomNumbers1(generatedNumbers1.toString().padStart(3, '0'));
-    setRandomNumbers2(generatedNumbers2.toString().padStart(3, '0'));
-    setRandomNumbers3(generatedNumbers3);
-    setRandomNumbers4(generatedNumbers4);
-    combinedNumbers3Digits(combinedNumbers3DigitsAll);
-
-    setValue(e.target.value);
-    localStorage.setItem('inputValue', JSON.stringify(combinedNumbers3DigitsAll));
-
-    setMatchedNumbers([]);
-
-    console.log(matchedNumbers)
-    console.log(combinedNumbers3DigitsAll);
+    setRandomNumbers(generatedNumbers[0]);
+    setRandomNumbers1(generatedNumbers[1]);
+    setRandomNumbers2(generatedNumbers[2]);
+    setRandomNumbers3(generatedNumbers[3]);
+    setRandomNumbers4(generatedNumbers[4]);
+    setCheckNumbers3Digits(generatedNumbers);
+    localStorage.setItem('randomNumbers', JSON.stringify(generatedNumbers));
   };
 
+  const handleButtonClick = () => {
+    generateRandomNumbers();
+  };
+
+  const [userNumbers, setUserNumbers] = useState([]);
+
+  const [matchedNumbers, setMatchedNumbers] = useState([]);
+
+  const [alert, setALERT] = useState([]);
+
+  console.log('checkNumbers3Digits :', checkNumbers3Digits);
+
   useEffect(() => {
-    const storagenumber = localStorage.getItem('inputValue');
-    const storagenumberjs = JSON.parse(storagenumber)
-    setValue(storagenumberjs);
+    fetchnumbers();
   }, []);
+
+  const fetchnumbers = () => {
+    const storedRandomNumbers = localStorage.getItem('inputValue');
+    if (storedRandomNumbers) {
+      setRandomNumbers(JSON.parse(storedRandomNumbers));
+    } else {
+      return []
+    }
+  };
 
   const handleUserNumbersChange = (event, index) => {
     const updatedUserNumbers = [...userNumbers];
@@ -91,35 +104,53 @@ const LotteryNumbers = () => {
     console.log('matched', matched);
     console.log("ป้อนเลขหวย", matched, "ตรวจสอบเลข : ", checkNumbers3Digits);
     console.log('output 1 :', userNumbers);
-    console.log('output 2 :', userNumbers.includes(checkNumbers3Digits[6]));
+    console.log('JSON.stringify 1 :', JSON.stringify(checkNumbers3Digits[0]));
+    console.log('JSON.stringify 2 :', JSON.stringify(userNumbers).slice(-2, 2).padStart(3, '0'));
+    console.log('JSON.stringify 3 :', JSON.stringify(checkNumbers3Digits[6]));
+    console.log('JSON.stringify 2 :', JSON.stringify(userNumbers).slice(-2, 2).padStart(3, '0'));
+    console.log('JSON.stringify 3 :', JSON.stringify(checkNumbers3Digits[0]));
+    console.log('JSON.stringify 4 :', JSON.stringify(userNumbers));
+    console.log('JSON.stringify 5 :', JSON.stringify(checkNumbers3Digits[1]));
+    console.log('output 2 :', JSON.stringify(userNumbers).includes(checkNumbers3Digits[0]));
     console.log('output 3 :', userNumbers.toString().slice(-2));
-
-    if (userNumbers.includes(checkNumbers3Digits[0])) {
+    if (JSON.stringify(userNumbers).includes(checkNumbers3Digits[0]) ||
+      JSON.stringify(userNumbers).slice(-3, -1).padStart(3, '0').includes(checkNumbers3Digits[0]) ||
+      JSON.stringify(userNumbers).slice(-2, 2).padStart(3, '0').includes(checkNumbers3Digits[0])) {
       result.push('ถูกรางวัลที่ 1');
       console.log(userNumbers, 'ถูกรางวัลที่ 1');
       setMatchedNumbers(userNumbers);
     }
 
-    if (
-      userNumbers.includes(checkNumbers3Digits[1]) ||
-      userNumbers.includes(checkNumbers3Digits[2])
+    if (JSON.stringify(userNumbers).includes(checkNumbers3Digits[1]) ||
+      JSON.stringify(userNumbers).includes(checkNumbers3Digits[2]) ||
+      JSON.stringify(userNumbers).slice(-3, -1).padStart(3, '0').includes(checkNumbers3Digits[1]) ||
+      JSON.stringify(userNumbers).slice(-3, -1).padStart(3, '0').includes(checkNumbers3Digits[2]) ||
+      JSON.stringify(userNumbers).slice(-2, 2).padStart(3, '0').includes(checkNumbers3Digits[1]) ||
+      JSON.stringify(userNumbers).slice(-2, 2).padStart(3, '0').includes(checkNumbers3Digits[2])
     ) {
       result.push('ถูกรางวัลข้างเคียงรางวัลที่ 1');
-      console.log(userNumbers, 'ถูกรางวัลข้างเคียงรางวัลที่ 1');
+      console.log(JSON.stringify(userNumbers), 'ถูกรางวัลข้างเคียงรางวัลที่ 1');
       setMatchedNumbers(userNumbers);
     }
 
     if (
-      userNumbers.includes(checkNumbers3Digits[3]) ||
-      userNumbers.includes(checkNumbers3Digits[4]) ||
-      userNumbers.includes(checkNumbers3Digits[5])
+      JSON.stringify(userNumbers).includes(checkNumbers3Digits[3]) ||
+      JSON.stringify(userNumbers).includes(checkNumbers3Digits[4]) ||
+      JSON.stringify(userNumbers).includes(checkNumbers3Digits[5]) ||
+      JSON.stringify(userNumbers).slice(-3, -1).padStart(3, '0').includes(checkNumbers3Digits[3]) ||
+      JSON.stringify(userNumbers).slice(-3, -1).padStart(3, '0').includes(checkNumbers3Digits[4]) ||
+      JSON.stringify(userNumbers).slice(-3, -1).padStart(3, '0').includes(checkNumbers3Digits[5]) ||
+      JSON.stringify(userNumbers).slice(-2, 2).padStart(3, '0').includes(checkNumbers3Digits[3]) ||
+      JSON.stringify(userNumbers).slice(-2, 2).padStart(3, '0').includes(checkNumbers3Digits[4]) ||
+      JSON.stringify(userNumbers).slice(-2, 2).padStart(3, '0').includes(checkNumbers3Digits[5])
     ) {
       result.push('ถูกรางวัลที่ 2');
       console.log(userNumbers, 'ถูกรางวัลที่ 2');
       setMatchedNumbers(userNumbers);
     }
 
-    if (userNumbers.toString().slice(-2).includes(checkNumbers3Digits[6])) {
+    if (JSON.stringify(userNumbers).slice(-3, -1).padStart(3, '0').includes(checkNumbers3Digits[6]) ||
+      JSON.stringify(userNumbers).slice(-2, 2).padStart(3, '0').includes(checkNumbers3Digits[6])) {
       result.push('ถูกรางวัลเลขท้าย 2 ตัว');
       console.log(userNumbers, 'ถูกรางวัลเลขท้าย 2 ตัว');
       setMatchedNumbers(userNumbers);
@@ -154,11 +185,10 @@ const LotteryNumbers = () => {
                         รางวัลละ 6,000,000 บาท</p>
                     </div>
                     <div className="lottery-number">
-                      {randomNumbers > 0 ? (
-                        <p>{randomNumbers}</p>
-                      ) : (
-                        <p>{value[0]}</p>
-                      )}
+                      {randomNumbers > 0
+                        ? <p>{checkNumbers3Digits[0]}</p>
+                        : <p></p>
+                      }
                     </div>
                   </div>
                   <div className="lottery-number-item">
@@ -167,17 +197,16 @@ const LotteryNumbers = () => {
                         รางวัลๆละ 100,000 บาท</p>
                     </div>
                     <div className="lottery-number">
-                      {randomNumbers > 0 ? (
-                        <>
-                          <p>{randomNumbers1}</p>
-                          <p>{randomNumbers2}</p>
+                      {randomNumbers1 || randomNumbers2 > 0
+                        ? <>
+                          <p>{checkNumbers3Digits[1]}</p>
+                          <p>{checkNumbers3Digits[2]}</p>
                         </>
-                      ) : (
-                        <>
-                          <p>{value[1]}</p>
-                          <p>{value[2]}</p>
+                        : <>
+                          <p></p>
+                          <p></p>
                         </>
-                      )}
+                      }
                     </div>
                   </div>
                   <div className="lottery-number-item">
@@ -186,19 +215,18 @@ const LotteryNumbers = () => {
                         รางวัลๆละ 4,000 บาท</p>
                     </div>
                     <div className="lottery-number">
-                      {randomNumbers > 0 ? (
-                        <>
-                          <p>{randomNumbers3[0]}</p>
-                          <p>{randomNumbers3[1]}</p>
-                          <p>{randomNumbers3[2]}</p>
+                      {randomNumbers3 > 0
+                        ? <>
+                          <p>{checkNumbers3Digits[3]}</p>
+                          <p>{checkNumbers3Digits[4]}</p>
+                          <p>{checkNumbers3Digits[5]}</p>
                         </>
-                      ) : (
-                        <>
-                          <p>{value[3]}</p>
-                          <p>{value[4]}</p>
-                          <p>{value[5]}</p>
+                        : <>
+                          <p></p>
+                          <p></p>
+                          <p></p>
                         </>
-                      )}
+                      }
                     </div>
                   </div>
                   <div className="lottery-number-item">
@@ -207,19 +235,16 @@ const LotteryNumbers = () => {
                         รางวัลๆละ 2,000 บาท</p>
                     </div>
                     <div className="lottery-number">
-                      {randomNumbers > 0 ? (
-                        <>
-                          <p>{randomNumbers4[0]}</p>
+                      {randomNumbers4 > 0
+                        ? <>
+                          <p>{checkNumbers3Digits[6].slice(-2)}</p>
                         </>
-                      ) : (
-                        <>
-                          <p>{value[6]}</p>
-                        </>
-                      )}
+                        : <p></p>
+                      }
                     </div>
                   </div>
                 </div>
-                <button onClick={generateNumbers} className="btn btn-success random-btn">ดำเนินการสุ่มรางวัล</button>
+                <button onClick={handleButtonClick} className="btn btn-success random-btn">ดำเนินการสุ่มรางวัล</button>
               </div>
             </div>
 
@@ -239,7 +264,7 @@ const LotteryNumbers = () => {
                       type="text"
                       minLength="3"
                       maxLength="3"
-                      pattern="[0-9]"
+                      pattern={0 - 9}
                       value={userNumbers[index] || ''}
                       onChange={event => handleUserNumbersChange(event, index)}
                     />
