@@ -264,7 +264,7 @@ const LotteryNumbers = () => {
                       type="text"
                       minLength="3"
                       maxLength="3"
-                      pattern={0 - 9}
+                      pattern="[0-9]"
                       value={userNumbers[index] || ''}
                       onChange={event => handleUserNumbersChange(event, index)}
                     />
