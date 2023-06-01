@@ -28,7 +28,7 @@ const LotteryNumbers = () => {
   };
 
   const generateRandomNumbers = () => {
-    const min = 998;
+    const min = 1;
     const max = 1000;
     const generatedNumbers = [];
     // const generatedNumbers = ['022', '019', '021', '432', '485', '022', '022']
