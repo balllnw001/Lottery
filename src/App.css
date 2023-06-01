@@ -101,7 +101,7 @@ p {
 }
 
 .award-name p{
-  padding: 15px;
+  padding: 25px;
   width: 100%;
   height: 100%;
   align-items: center;
@@ -162,6 +162,15 @@ p {
 }
 
 @media screen and (max-width:480px){
+  .content-title h1{
+    font-size: 4vw;
+  }
+  .random-lottery h2{
+    font-size: 4vw;
+  }
+  .lottery-number-list p{
+    font-size: 4vw;
+  }
   .lottery-number-item{
     grid-template-columns: repeat(1,1fr);
   }
@@ -178,6 +187,7 @@ p {
     width: 100%;
     margin: 5px 0;
     border-radius: 0;
+    font-size: 4vw;
   }
   .check-lottery label{
     grid-template-columns: repeat(1,1fr);
@@ -195,9 +205,16 @@ p {
     padding: 10px 10px;
   }
   .check-lottery{
+    font-size: 4vw;
     border: 1px solid #000;
+  }
+  .check-lottery .input-number-lottery p{
+    font-size: 4vw;
   }
   .lottery-main{
     padding: 20px 10px;
+  }
+  .check-lottery-btn{
+    font-size: 4vw;
   }
 }

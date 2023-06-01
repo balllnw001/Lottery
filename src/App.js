@@ -28,10 +28,10 @@ const LotteryNumbers = () => {
   };
 
   const generateRandomNumbers = () => {
-    const min = 1;
-    const max = 999;
-    // const generatedNumbers = [];
-    const generatedNumbers = ['022', '019', '021', '432', '485', '022', '022']
+    const min = 998;
+    const max = 1000;
+    const generatedNumbers = [];
+    // const generatedNumbers = ['022', '019', '021', '432', '485', '022', '022']
 
     const newNumbers0 = Math.floor(
       Math.random() * (max - min + 1)) + min;
@@ -51,7 +51,7 @@ const LotteryNumbers = () => {
       generatedNumbers.push(newNumbers3.toString().padStart(3, '0'));
     };
     const newNumbers4 = Math.floor(
-      Math.random() * 999 + 1).toString().slice(-2);
+      Math.random() * max + min).toString().slice(-2);
     generatedNumbers.push(newNumbers4.toString().padStart(3, '0'));
 
     setRandomNumbers(generatedNumbers[0]);
@@ -181,8 +181,7 @@ const LotteryNumbers = () => {
                 <div className="lottery-number-list">
                   <div className="lottery-number-item">
                     <div className="award-name">
-                      <p>รางวัลที่ 1 <br />
-                        รางวัลละ 6,000,000 บาท</p>
+                      <p>รางวัลที่ 1 </p>
                     </div>
                     <div className="lottery-number">
                       {randomNumbers > 0
@@ -193,8 +192,7 @@ const LotteryNumbers = () => {
                   </div>
                   <div className="lottery-number-item">
                     <div className="award-name">
-                      <p>รางวัลเลขข้างเคียงรางวัลที่ 1<br />
-                        รางวัลๆละ 100,000 บาท</p>
+                      <p>รางวัลเลขข้างเคียงรางวัลที่ 1</p>
                     </div>
                     <div className="lottery-number">
                       {randomNumbers1 || randomNumbers2 > 0
@@ -211,8 +209,7 @@ const LotteryNumbers = () => {
                   </div>
                   <div className="lottery-number-item">
                     <div className="award-name">
-                      <p>รางวัลที่ 2<br />
-                        รางวัลๆละ 4,000 บาท</p>
+                      <p>รางวัลที่ 2</p>
                     </div>
                     <div className="lottery-number">
                       {randomNumbers3 > 0
@@ -231,8 +228,7 @@ const LotteryNumbers = () => {
                   </div>
                   <div className="lottery-number-item">
                     <div className="award-name">
-                      <p>รางวัลเลขท้าย 2 ตัว<br />
-                        รางวัลๆละ 2,000 บาท</p>
+                      <p>รางวัลเลขท้าย 2 ตัว</p>
                     </div>
                     <div className="lottery-number">
                       {randomNumbers4 > 0
@@ -262,8 +258,8 @@ const LotteryNumbers = () => {
                       placeholder=' กรุณากรอก(เฉพาะตัวเลข)'
                       key={index}
                       type="text"
-                      minLength="3"
-                      maxLength="3"
+                      minLength="1"
+                      maxLength="4"
                       pattern="[0-9]"
                       value={userNumbers[index] || ''}
                       onChange={event => handleUserNumbersChange(event, index)}
